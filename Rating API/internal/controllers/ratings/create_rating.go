@@ -10,14 +10,13 @@ import (
 )
 
 // UpdateRating
-// @Tags         collections
-// @Summary      Get a collection.
-// @Description  Get a collection.
-// @Param        id           	path      string  true  "Collection UUID formatted ID"
-// @Success      200            {object}  models.Collection
+// @Tags         ratings
+// @Summary      Create a rating.
+// @Description  Create a rating. UUID is automatically generated
+// @Success      200
 // @Failure      422            "Cannot parse id"
 // @Failure      500            "Something went wrong"
-// @Router       /collections/{id} [get]
+// @Router       /ratings       [post]
 func CreateRating(w http.ResponseWriter, r *http.Request) {
 	var rating models.Rating
     json.NewDecoder(r.Body).Decode(&rating)
