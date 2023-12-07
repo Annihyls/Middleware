@@ -98,4 +98,3 @@ func CreateRating(id uuid.UUID, note int, description *string) (error) {
     }
 	return nil
 }
-

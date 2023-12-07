@@ -28,8 +28,8 @@ paths:
         required: true
         type: string
       responses:
-        "200":
-          description: OK
+        "204":
+          description: No Content
         "422":
           description: Cannot parse id
         "500":
@@ -54,8 +54,10 @@ paths:
     post:
       description: Create a rating. UUID is automatically generated
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Rating'
         "422":
           description: Cannot parse id
         "500":

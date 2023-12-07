@@ -14,7 +14,7 @@ import (
 // @Summary      Delete a rating.
 // @Description  Delete a rating.
 // @Param        id           	path      string  true  "Collection UUID formatted ID"
-// @Success      200
+// @Success      204
 // @Failure      422            "Cannot parse id"
 // @Failure      500            "Something went wrong"
 // @Router       /ratings       [delete]
@@ -37,6 +37,6 @@ func DeleteRating(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader(http.StatusNoContent)
 	return
 }

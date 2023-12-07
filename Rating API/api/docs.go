@@ -47,8 +47,11 @@ const docTemplate = `{
                 ],
                 "summary": "Create a rating.",
                 "responses": {
-                    "200": {
-                        "description": "OK"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.Rating"
+                        }
                     },
                     "422": {
                         "description": "Cannot parse id"
@@ -74,8 +77,8 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK"
+                    "204": {
+                        "description": "No Content"
                     },
                     "422": {
                         "description": "Cannot parse id"
