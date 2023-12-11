@@ -1,4 +1,4 @@
-package collections
+/*package collections
 
 import (
 	"database/sql"
@@ -44,3 +44,4 @@ func GetCollectionById(id uuid.UUID) (*models.Collection, error) {
 
 	return collection, err
 }
+*/

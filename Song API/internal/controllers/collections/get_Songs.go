@@ -54,7 +54,7 @@ func GetSongHandler(w http.ResponseWriter, r *http.Request) {
 			body, _ := json.Marshal(customError)
 			_, _ = w.Write(body)
 		} else {
-			w.WriteHeader(http.StatusInternalServerError)
+			w.WriteHeader(http.StatusNotFound)
 		}
 		return
 	}
