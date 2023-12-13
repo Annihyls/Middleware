@@ -9,12 +9,12 @@ import (
 )
 
 // GetCollections
-// @Tags         collections
-// @Summary      Get collections.
-// @Description  Get collections.
-// @Success      200            {array}  models.Collection
+// @Tags         ratings
+// @Summary      Get ratings.
+// @Description  Get ratings.
+// @Success      200            {array}  models.Rating
 // @Failure      500             "Something went wrong"
-// @Router       /collections [get]
+// @Router       /ratings       [get]
 func GetRatings(w http.ResponseWriter, _ *http.Request) {
 	// calling service
 	ratings, err := ratings.GetAllRatings()

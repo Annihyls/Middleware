@@ -4,7 +4,7 @@ import (
 )
 type Rating struct {
     //id de l'utilisateur
-    Id          *uuid.UUID       `json:"id"`
+    Id          *uuid.UUID      `json:"id"`
 	Note        int             `json:"note"`
 	Description *string         `json:"description"`
 }

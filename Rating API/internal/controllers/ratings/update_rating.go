@@ -10,14 +10,14 @@ import (
 )
 
 // UpdateRating
-// @Tags         collections
-// @Summary      Get a collection.
-// @Description  Get a collection.
+// @Tags         ratings
+// @Summary      Update a rating.
+// @Description  Update a rating.
 // @Param        id           	path      string  true  "Collection UUID formatted ID"
-// @Success      200            {object}  models.Collection
+// @Success      200
 // @Failure      422            "Cannot parse id"
 // @Failure      500            "Something went wrong"
-// @Router       /collections/{id} [get]
+// @Router       /ratings/{id}  [put]
 func UpdateRating(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	ratingId, _ := ctx.Value("ratingId").(uuid.UUID)

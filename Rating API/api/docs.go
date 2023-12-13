@@ -10,28 +10,28 @@ const docTemplate = `{
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
         "contact": {
-            "name": "Justine Bachelard.",
-            "email": "justine.bachelard@ext.uca.fr"
+            "name": "Vincent GIMBERT.",
+            "email": "vincent.gimbert@yahoo.fr"
         },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/collections": {
+        "/ratings": {
             "get": {
-                "description": "Get collections.",
+                "description": "Get ratings.",
                 "tags": [
-                    "collections"
+                    "ratings"
                 ],
-                "summary": "Get collections.",
+                "summary": "Get ratings.",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.Collection"
+                                "$ref": "#/definitions/models.Rating"
                             }
                         }
                     },
@@ -39,15 +39,63 @@ const docTemplate = `{
                         "description": "Something went wrong"
                     }
                 }
+            },
+            "post": {
+                "description": "Create a rating. UUID is automatically generated",
+                "tags": [
+                    "ratings"
+                ],
+                "summary": "Create a rating.",
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.Rating"
+                        }
+                    },
+                    "422": {
+                        "description": "Cannot parse id"
+                    },
+                    "500": {
+                        "description": "Something went wrong"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a rating.",
+                "tags": [
+                    "ratings"
+                ],
+                "summary": "Delete a rating.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Collection UUID formatted ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "422": {
+                        "description": "Cannot parse id"
+                    },
+                    "500": {
+                        "description": "Something went wrong"
+                    }
+                }
             }
         },
-        "/collections/{id}": {
+        "/ratings/{id}": {
             "get": {
-                "description": "Get a collection.",
+                "description": "Get a rating.",
                 "tags": [
-                    "collections"
+                    "ratings"
                 ],
-                "summary": "Get a collection.",
+                "summary": "Get a rating.",
                 "parameters": [
                     {
                         "type": "string",
@@ -61,8 +109,35 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Collection"
+                            "$ref": "#/definitions/models.Rating"
                         }
+                    },
+                    "422": {
+                        "description": "Cannot parse id"
+                    },
+                    "500": {
+                        "description": "Something went wrong"
+                    }
+                }
+            },
+            "put": {
+                "description": "Update a rating.",
+                "tags": [
+                    "ratings"
+                ],
+                "summary": "Update a rating.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Collection UUID formatted ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
                     },
                     "422": {
                         "description": "Cannot parse id"
@@ -75,14 +150,18 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "models.Collection": {
+        "models.Rating": {
             "type": "object",
             "properties": {
-                "content": {
+                "description": {
                     "type": "string"
                 },
                 "id": {
+                    "description": "id de l'utilisateur",
                     "type": "string"
+                },
+                "note": {
+                    "type": "integer"
                 }
             }
         }
@@ -95,8 +174,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "",
 	BasePath:         "/",
 	Schemes:          []string{"http"},
-	Title:            "middleware/example",
-	Description:      "API to manage collections.",
+	Title:            "Rating API",
+	Description:      "API to manage ratings.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",
