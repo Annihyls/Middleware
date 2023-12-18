@@ -11,10 +11,10 @@ import (
 
 // UpdateUser
 // @Tags         users
-// @Summary      Get a user.
+// @Summary      Create a user.
 // @Description  Get a user.
 // @Param        id           	path      string  true  "User UUID formatted ID"
-// @Success      200            {object}  models.User
+// @Success      201           {object}  models.User
 // @Failure      422            "Cannot parse id"
 // @Failure      500            "Something went wrong"
 // @Router       /users/{id} [get]
@@ -43,6 +43,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader(http.StatusCreated)
 	return
 }

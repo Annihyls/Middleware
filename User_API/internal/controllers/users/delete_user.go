@@ -2,8 +2,8 @@ package users
 
 import (
 	"encoding/json"
-	"middleware/example/internal/models"
-	"middleware/example/internal/repositories/users"
+	"git2/Middleware/User_API/internal/models"
+	"git2/Middleware/User_API/internal/repositories/users"
 	"net/http"
 
 	"github.com/gofrs/uuid"
@@ -15,7 +15,7 @@ import (
 // @Summary      Get a user.
 // @Description  Get a user.
 // @Param        id           	path      string  true  "User UUID formatted ID"
-// @Success      200            {object}  models.User
+// @Success      201            {object}  models.User
 // @Failure      422            "Cannot parse id"
 // @Failure      500            "Something went wrong"
 // @Router       /users/{id} [get]
@@ -38,6 +38,6 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader(http.StatusCreated)
 	return
 }
