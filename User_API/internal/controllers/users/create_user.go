@@ -3,6 +3,7 @@ package users
 import (
 	"encoding/json"
 	"middleware/example/internal/models"
+	"middleware/example/internal/repositories/users"
 	"net/http"
 
 	"github.com/gofrs/uuid"
@@ -12,7 +13,7 @@ import (
 // UpdateUser
 // @Tags         users
 // @Summary      Create a user.
-// @Description  Get a user.
+// @Description  Create a user.
 // @Param        id           	path      string  true  "User UUID formatted ID"
 // @Success      201           {object}  models.User
 // @Failure      422            "Cannot parse id"
@@ -28,7 +29,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		logrus.Errorf("failed to generate UUID: %s", err.Error())
 	}
 
-	err = users.CreateUser(u, user.Prenom, user.Nom, user.Content)
+	err = users.CreateUser(u, user.Prenom, user.Nom)
 
 	if err != nil {
 		logrus.Errorf("error : %s", err.Error())

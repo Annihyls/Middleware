@@ -3,7 +3,7 @@ package users
 import (
 	"encoding/json"
 	"middleware/example/internal/models"
-	"middleware/example/internal/services/users"
+	"middleware/example/internal/repositories/users"
 	"net/http"
 
 	"github.com/sirupsen/logrus"

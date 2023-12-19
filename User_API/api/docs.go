@@ -78,10 +78,13 @@ const docTemplate = `{
         "models.User": {
             "type": "object",
             "properties": {
-                "content": {
+                "id": {
                     "type": "string"
                 },
-                "id": {
+                "nom": {
+                    "type": "string"
+                },
+                "prenom": {
                     "type": "string"
                 }
             }

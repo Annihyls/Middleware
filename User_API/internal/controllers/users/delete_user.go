@@ -2,12 +2,14 @@ package users
 
 import (
 	"encoding/json"
-	"git2/Middleware/User_API/internal/models"
-	"git2/Middleware/User_API/internal/repositories/users"
-	"net/http"
+
+	"middleware/example/internal/models"
+	"middleware/example/internal/repositories/users"
 
 	"github.com/gofrs/uuid"
 	"github.com/sirupsen/logrus"
+
+	"net/http"
 )
 
 // UpdateUser

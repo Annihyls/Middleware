@@ -2,9 +2,11 @@ basePath: /
 definitions:
   models.User:
     properties:
-      content:
-        type: string
       id:
+        type: string
+      nom:
+        type: string
+      prenom:
         type: string
     type: object
 info:
