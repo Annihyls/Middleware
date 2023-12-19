@@ -1,13 +1,14 @@
-/*package collections
+package collections
 
 import (
 	"database/sql"
 	"errors"
-	"github.com/gofrs/uuid"
-	"github.com/sirupsen/logrus"
 	"middleware/example/internal/models"
 	repository "middleware/example/internal/repositories/collections"
 	"net/http"
+
+	"github.com/gofrs/uuid"
+	"github.com/sirupsen/logrus"
 )
 
 func GetAllCollections() ([]models.Collection, error) {
@@ -44,4 +45,3 @@ func GetCollectionById(id uuid.UUID) (*models.Collection, error) {
 
 	return collection, err
 }
-*/

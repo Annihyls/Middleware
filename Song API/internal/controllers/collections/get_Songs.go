@@ -30,7 +30,7 @@ func GetSongsHandler(w http.ResponseWriter, r *http.Request) {
 			body, _ := json.Marshal(customError)
 			_, _ = w.Write(body)
 		} else {
-			w.WriteHeader(http.StatusInternalServerError)
+			w.WriteHeader(http.StatusNotFound)
 		}
 		return
 	}
@@ -41,9 +41,9 @@ func GetSongsHandler(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func GetSongHandler(w http.ResponseWriter, r *http.Request) {
+func GetSongByIdHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-	songId, _ := ctx.Value("collectionId").(uuid.UUID)
+	songId, _ := ctx.Value("songId").(uuid.UUID)
 
 	song, err := collections.GetSongById(songId)
 	if err != nil {
