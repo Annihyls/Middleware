@@ -1,4 +1,4 @@
-package main
+﻿package main
 
 import (
 	"github.com/go-chi/chi/v5"
@@ -23,8 +23,8 @@ func main() {
 		})
 	})
 
-	logrus.Info("[INFO] Web server started. Now listening on *:8080")
-	logrus.Fatalln(http.ListenAndServe(":8080", r))
+	logrus.Info("[INFO] Web server started. Now listening on *:8079")
+	logrus.Fatalln(http.ListenAndServe(":8079", r))
 }
 
 func init() {
@@ -36,7 +36,9 @@ func init() {
 		`CREATE TABLE IF NOT EXISTS ratings (
 			id VARCHAR(255) PRIMARY KEY NOT NULL UNIQUE,
 			note INTEGER NOT NULL,
-			description VARCHAR(255)
+			description VARCHAR(255),
+			id_user VARCHAR(255) NOT NULL,
+			id_song VARCHAR(255) NOT NULL
 		);`,
 	}
 	for _, scheme := range schemes {

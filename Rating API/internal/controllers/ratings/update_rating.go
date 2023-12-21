@@ -1,4 +1,4 @@
-package ratings
+﻿package ratings
 
 import (
 	"encoding/json"
@@ -24,7 +24,8 @@ func UpdateRating(w http.ResponseWriter, r *http.Request) {
 	var rating models.Rating
 
     json.NewDecoder(r.Body).Decode(&rating)
-	err := ratings.UpdateRating(ratingId, rating.Note, rating.Description)
+	err := ratings.UpdateRating(ratingId, rating.Note,
+	        rating.Description)
 
 	if err != nil {
 		logrus.Errorf("error : %s", err.Error())

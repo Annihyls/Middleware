@@ -22,7 +22,7 @@ func GetAllRatings() ([]models.Rating, error) {
 	ratings := []models.Rating{}
 	for rows.Next() {
 		var data models.Rating
-		err = rows.Scan(&data.Id, &data.Note, &data.Description)
+		err = rows.Scan(&data.Id, &data.Note, &data.Description, &data.UserId, &data.SongId)
 		if err != nil {
 			return nil, err
 		}
@@ -43,7 +43,7 @@ func GetRatingById(id uuid.UUID) (*models.Rating, error) {
 	helpers.CloseDB(db)
 
 	var rating models.Rating
-	err = row.Scan(&rating.Id, &rating.Note, &rating.Description)
+	err = row.Scan(&rating.Id, &rating.Note, &rating.Description, &rating.UserId, &rating.SongId)
 	if err != nil {
 		return nil, err
 	}
@@ -81,15 +81,15 @@ func DeleteRating(id uuid.UUID) (error) {
 	return nil
 }
 
-func CreateRating(id uuid.UUID, note int, description *string) (error) {
+func CreateRating(id uuid.UUID, note int, description *string, userid uuid.UUID, songid uuid.UUID) (error) {
 	db, err := helpers.OpenDB()
 	if err != nil {
 		return err
 	}
 	if &description != nil {
-	    _, err = db.Exec("INSERT INTO ratings VALUES (?, ?, ?)", id.String(), note, &description)
+	    _, err = db.Exec("INSERT INTO ratings VALUES (?, ?, ?, ?, ?)", id.String(), note, &description, userid.String(), songid.String())
 	} else {
-	    _, err = db.Exec("INSERT INTO ratings (id, note) VALUES (?, ?)", id.String(), note)
+	    _, err = db.Exec("INSERT INTO ratings (id, note, id_user, id_song) VALUES (?, ?, ?, ?)", id.String(), note, userid.String(), songid.String())
 	}
 
 	helpers.CloseDB(db)
