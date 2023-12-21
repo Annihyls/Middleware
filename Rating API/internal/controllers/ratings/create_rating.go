@@ -28,7 +28,8 @@ func CreateRating(w http.ResponseWriter, r *http.Request) {
     	logrus.Errorf("failed to generate UUID: %s", err.Error())
     }
 
-	err = ratings.CreateRating(*rating.Id, rating.Note, rating.Description)
+	err = ratings.CreateRating(*rating.Id, rating.Note,
+           rating.Description, *rating.UserId, *rating.SongId)
 
 	if err != nil {
 		logrus.Errorf("error : %s", err.Error())

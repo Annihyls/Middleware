@@ -1,9 +1,9 @@
-﻿package main
+package main
 
 import (
 	"github.com/go-chi/chi/v5"
 	"github.com/sirupsen/logrus"
-	"middleware/example/internal/controllers/ratings"
+	"middleware/example/internal/controllers/collections"
 	"middleware/example/internal/helpers"
 	_ "middleware/example/internal/models"
 	"net/http"
@@ -12,19 +12,16 @@ import (
 func main() {
 	r := chi.NewRouter()
 
-	r.Route("/ratings", func(r chi.Router) {
-		r.Get("/", ratings.GetRatings)
-		r.Post("/", ratings.CreateRating)
+	r.Route("/collections", func(r chi.Router) {
+		r.Get("/", collections.GetCollections)
 		r.Route("/{id}", func(r chi.Router) {
-			r.Use(ratings.Ctx)
-			r.Put("/", ratings.UpdateRating)
-			r.Delete("/", ratings.DeleteRating)
-			r.Get("/", ratings.GetRating)
+			r.Use(collections.Ctx)
+			r.Get("/", collections.GetCollection)
 		})
 	})
 
-	logrus.Info("[INFO] Web server started. Now listening on *:8079")
-	logrus.Fatalln(http.ListenAndServe(":8079", r))
+	logrus.Info("[INFO] Web server started. Now listening on *:8080")
+	logrus.Fatalln(http.ListenAndServe(":8080", r))
 }
 
 func init() {
@@ -33,12 +30,11 @@ func init() {
 		logrus.Fatalf("error while opening database : %s", err.Error())
 	}
 	schemes := []string{
-		`CREATE TABLE IF NOT EXISTS ratings (
+		`CREATE TABLE IF NOT EXISTS users (
 			id VARCHAR(255) PRIMARY KEY NOT NULL UNIQUE,
-			note INTEGER NOT NULL,
-			description VARCHAR(255),
-			id_user VARCHAR(255) NOT NULL,
-			id_song VARCHAR(255) NOT NULL
+			content VARCHAR(255) NOT NULL
+			nom VARCHAR(255) NOT NULL
+			prenom VARCHAR(255) NOT NULL
 		);`,
 	}
 	for _, scheme := range schemes {

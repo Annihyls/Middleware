@@ -81,8 +81,8 @@ func DeleteRating(id uuid.UUID) (error) {
 	return err
 }
 
-func CreateRating(id uuid.UUID, note int, description *string) (error) {
-	err := repository.CreateRating(id, note, description)
+func CreateRating(id uuid.UUID, note int, description *string, userid uuid.UUID, songid uuid.UUID) (error) {
+	err := repository.CreateRating(id, note, description, userid, songid)
 	if err != nil {
 		if errors.As(err, &sql.ErrNoRows) {
 			return &models.CustomError{
