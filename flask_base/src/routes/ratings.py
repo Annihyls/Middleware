@@ -58,7 +58,7 @@ def get_rating(id):
 def create_rating():
     """
     ---
-    put:
+    create:
       description: create a rating
       parameters:
       requestBody:
