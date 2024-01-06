@@ -1,4 +1,5 @@
 import json
+from flask import jsonify
 import requests
 from sqlalchemy import exc
 from marshmallow import EXCLUDE
@@ -22,18 +23,20 @@ def delete_rating(id_rating):
         raise Forbidden
     """
     response = requests.request(method="DELETE", url=ratings_url+id_rating)
-    return response.status_code
+    if response.status_code != 204:
+        return jsonify({'error': 'Failed to delete rating'}), response.status_code
+    else:
+        return jsonify({'message': 'Rating deleted successfully'}), 204
+
 
 
 def create_rating(rating_create):
-    # on récupère le schéma utilisateur pour la requête vers l'API ratings
+    # on récupère le schéma rating pour la requête vers l'API ratings
+    print("Le problème se situe ci-dessous !!!")
     rating_schema = RatingSchema().loads(json.dumps(rating_create), unknown=EXCLUDE)
-
+    print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
     # on crée l'utilisateur côté API ratings
     response = requests.request(method="POST", url=ratings_url, json=rating_schema)
-    if response.status_code != 201:
-        return response.json(), response.status_code
-
     return response.json(), response.status_code
 
 
@@ -50,6 +53,10 @@ def modify_rating(id_rating, rating_update):
         # on lance la requête de modification
         response = requests.request(method="PUT", url=ratings_url+id_rating, json=rating_schema)
         if response.status_code != 200:
-            return response.json(), response.status_code
-    return (response.json(), response.status_code) if response else get_rating(id_rating)
+            return jsonify({'error': 'Failed to update rating'}), response.status_code
+        else:
+            return jsonify({'message': 'Rating updated successfully'}), 200
+    else:
+        # Je met ça car il y a un bug des fois flask n'accepte pas la requete. Il faut changer son update
+        return jsonify({'bug': 'Change your update, because it\'s buggy'}), 400
 

@@ -4,7 +4,7 @@ from flask_login import login_required
 from marshmallow import ValidationError
 
 from src.models.http_exceptions import *
-from src.schemas.rating import RatingUpdateSchema
+from src.schemas.rating import *
 from src.schemas.errors import *
 import src.services.ratings as ratings_service
 
@@ -118,8 +118,6 @@ def create_rating():
         error = ForbiddenSchema().loads(json.dumps({"message": "Can't manage other ratings"}))
         return error, error.get("code")
     except Exception:
-        #ça passe par là pour aucune raison
-        print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
         error = SomethingWentWrongSchema().loads("{}")
         return error, error.get("code")
 
@@ -194,8 +192,6 @@ def put_rating(id):
         error = ForbiddenSchema().loads(json.dumps({"message": "Can't manage other ratings"}))
         return error, error.get("code")
     except Exception:
-        #ça passe par là pour aucune raison
-        print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
         error = SomethingWentWrongSchema().loads("{}")
         return error, error.get("code")
 

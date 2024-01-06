@@ -5,6 +5,8 @@ from marshmallow import Schema, fields, validates_schema, ValidationError
 class RatingSchema(Schema):
     note = fields.Int(description="Note")
     description = fields.String(description="Description")
+    id_user = fields.UUID(description="ID_user")
+    id_song = fields.UUID(description="ID_song")
 
     @staticmethod
     def is_empty(obj):
@@ -14,11 +16,14 @@ class RatingSchema(Schema):
 class BaseRatingSchema(Schema):
     note = fields.Int(description="Note")
     description = fields.String(description="Description")
+    id_user = fields.UUID(description="id_user")
+    id_song = fields.UUID(description="id_song")
+
 
 
 # Schéma rating de modification (note, description)
 class RatingUpdateSchema(BaseRatingSchema):
-    # permet de définir dans quelles conditions le schéma est validé ou non
+    # permet de définir dans quelles conditions le schéma est validé ou non lorsqu'on l'update
     @validates_schema
     def validates_schemas(self, data, **kwargs):
         if not ("note" in data and data["note"] is not None):
@@ -26,7 +31,7 @@ class RatingUpdateSchema(BaseRatingSchema):
 
 
 class RatingCreateSchema(BaseRatingSchema):
-    # permet de définir dans quelles conditions le schéma est validé ou non
+    # permet de définir dans quelles conditions le schéma est validé ou non lorsqu'on le create
     @validates_schema
     def validates_schemas(self, data, **kwargs):
         if not (("note" in data and data["note"] is not None) or
