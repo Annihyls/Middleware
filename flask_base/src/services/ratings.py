@@ -34,7 +34,7 @@ def create_rating(rating_create):
     # on récupère le schéma rating pour la requête vers l'API ratings
     print("Le problème se situe ci-dessous !!!")
     rating_schema = RatingSchema().loads(json.dumps(rating_create), unknown=EXCLUDE)
-    print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+    print("-------C'EST BON C'EST PASSE-------")
     # on crée l'utilisateur côté API ratings
     response = requests.request(method="POST", url=ratings_url, json=rating_schema)
     return response.json(), response.status_code

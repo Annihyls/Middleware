@@ -1,12 +1,12 @@
 from marshmallow import Schema, fields, validates_schema, ValidationError
 
 
-# Schéma rating de sortie (renvoyé au front)
+# Schéma rating de sortie (renvoyés au front)
 class RatingSchema(Schema):
     note = fields.Int(description="Note")
     description = fields.String(description="Description")
-    id_user = fields.UUID(description="ID_user")
-    id_song = fields.UUID(description="ID_song")
+    id_user = fields.String(description="ID_user")
+    id_song = fields.String(description="ID_song")
 
     @staticmethod
     def is_empty(obj):
@@ -16,9 +16,8 @@ class RatingSchema(Schema):
 class BaseRatingSchema(Schema):
     note = fields.Int(description="Note")
     description = fields.String(description="Description")
-    id_user = fields.UUID(description="id_user")
-    id_song = fields.UUID(description="id_song")
-
+    id_user = fields.String(description="id_user")
+    id_song = fields.String(description="id_song")
 
 
 # Schéma rating de modification (note, description)
