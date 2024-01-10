@@ -25,13 +25,13 @@ def get_songs():
     print(response.status_code)
     return response.json(), response.status_code
 
-def delete_song(id):
+def delete_song(song_id):
     """
     # on vérifie que l'utilisateur modifie ses ratings et pas ceux des autres
     if id_user != current_user.id:
         raise Forbidden
     """
-    response = requests.request(method="DELETE", url=songs_url+id)
+    response = requests.request(method="DELETE", url=songs_url+song_id)
     if response.status_code != 204:
         return jsonify({'error': 'Failed to delete song'}), response.status_code
     else:
