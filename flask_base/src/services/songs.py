@@ -15,12 +15,9 @@ import src.repositories.users as users_repository
 songs_url = "http://localhost:8081/songs/"  # URL de l'API users (golang)
 
 def get_song(id):
-    print("debug0")
     response = requests.request(method="GET", url=songs_url+id)
-    if response.status_code != 200 :
-        return jsonify({'error': 'Failed to update rating'}), response.status_code
-    else:
-        return jsonify({'message': 'Rating updated successfully'}), 200
+    response.raise_for_status()
+    return response.json(), response.status_code
 
 def get_songs():
     print("debug0")
@@ -36,9 +33,9 @@ def delete_song(id):
     """
     response = requests.request(method="DELETE", url=songs_url+id)
     if response.status_code != 204:
-        return jsonify({'error': 'Failed to delete rating'}), response.status_code
+        return jsonify({'error': 'Failed to delete song'}), response.status_code
     else:
-        return jsonify({'message': 'Rating deleted successfully'}), 204 
+        return jsonify({'message': 'Song deleted successfully'}), 204 
 
 def create_song(song):
 
@@ -59,6 +56,6 @@ def update_song(id,song):
     response = requests.put(songs_url+id, json=song)
     print(response.status_code)
     if response.status_code != 200:
-        return jsonify({'error': 'Failed to update rating'}), response.status_code
+        return jsonify({'error': 'Failed to update song'}), response.status_code
     else:
-        return jsonify({'message': 'Rating updated successfully'}), 200
+        return jsonify({'message': 'Song updated successfully'}), 200
