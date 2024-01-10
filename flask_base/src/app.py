@@ -1,6 +1,7 @@
 from flask import jsonify
 
 # load modules
+from src.routes.users import users as users_route
 from src.routes.ratings import ratings as ratings_route
 from src.routes.songs import songs as songs_route
 from src.routes.auth import auth as auth_route
@@ -13,6 +14,7 @@ app = config_app()
 
 # register routes
 app.register_blueprint(auth_route, url_prefix="/")
+app.register_blueprint(users_route, url_prefix="/users")
 app.register_blueprint(ratings_route, url_prefix="/ratings")
 app.register_blueprint(songs_route, url_prefix="/songs")
 

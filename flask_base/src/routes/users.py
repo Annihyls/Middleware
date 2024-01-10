@@ -13,7 +13,7 @@ users = Blueprint(name="users", import_name=__name__)
 
 
 @users.route('/<id>', methods=['GET'])
-@login_required
+#@login_required
 def get_user(id):
     """
     ---
@@ -55,7 +55,7 @@ def get_user(id):
 
 
 @users.route('/<id>', methods=['PUT'])
-@login_required
+#@login_required
 def put_user(id):
     """
     ---
@@ -76,6 +76,51 @@ def put_user(id):
       responses:
         '200':
           description: Ok
+          content:
+            application/json:
+              schema: User
+            application/yaml:
+              schema: User
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: Unauthorized
+            application/yaml:
+              schema: Unauthorized
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema: NotFound
+            application/yaml:
+              schema: NotFound
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema: UnprocessableEntity
+            application/yaml:
+              schema: UnprocessableEntity
+      tags:
+          - users
+    """
+@users.route('/', methods=['POST'])
+#@login_required
+def create_User():
+    """
+    ---
+    create:
+      description: create a user
+      parameters:
+      requestBody:
+        required: true
+        content:
+            application/json:
+                schema: UserUpdate
+      responses:
+        '201':
+          description: Created
           content:
             application/json:
               schema: User

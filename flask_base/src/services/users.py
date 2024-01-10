@@ -1,4 +1,5 @@
 import json
+from flask import jsonify
 import requests
 from sqlalchemy import exc
 from marshmallow import EXCLUDE
@@ -16,6 +17,7 @@ users_url = "http://localhost:4000/users/"  # URL de l'API users (golang)
 def get_user(id):
     response = requests.request(method="GET", url=users_url+id)
     return response.json(), response.status_code
+
 
 def create_user(user_register):
     # on récupère le modèle utilisateur pour la BDD
@@ -68,8 +70,17 @@ def modify_user(id, user_update):
             if "NOT NULL" in e.orig.args[0]:
                 raise UnprocessableEntity
             raise Conflict
-
     return (response.json(), response.status_code) if response else get_user(id)
+
+def delete_user(user_id):
+
+    if str(current_user.id) != user_id:
+        raise Forbidden('You can only delete your own account')
+    response = requests.request(method="DELETE", url=users_url + user_id)
+    if response.status_code != 204:
+        return jsonify({'error': 'Failed to delete user'}), response.status_code
+    else:
+        return jsonify({'message': 'User deleted successfully'}), 204
 
 
 def get_user_from_db(username):
