@@ -18,22 +18,31 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/collections": {
-            "get": {
-                "description": "Get collections.",
+        "/collections/songs/{id}": {
+            "delete": {
+                "description": "Delete an existing song from the collection.",
                 "tags": [
-                    "collections"
+                    "songs"
                 ],
-                "summary": "Get collections.",
+                "summary": "Delete an existing song from the collection.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Song ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.Collection"
-                            }
-                        }
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Song not found"
                     },
                     "500": {
                         "description": "Something went wrong"
@@ -43,15 +52,15 @@ const docTemplate = `{
         },
         "/collections/{id}": {
             "get": {
-                "description": "Get a collection.",
+                "description": "Get a song.",
                 "tags": [
-                    "collections"
+                    "Songs"
                 ],
-                "summary": "Get a collection.",
+                "summary": "Get a song.",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Collection UUID formatted ID",
+                        "description": "Song UUID formatted ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -61,7 +70,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Collection"
+                            "$ref": "#/definitions/models.Song"
                         }
                     },
                     "422": {
@@ -75,13 +84,16 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "models.Collection": {
+        "models.Song": {
             "type": "object",
             "properties": {
-                "content": {
+                "artist": {
                     "type": "string"
                 },
                 "id": {
+                    "type": "string"
+                },
+                "title": {
                     "type": "string"
                 }
             }

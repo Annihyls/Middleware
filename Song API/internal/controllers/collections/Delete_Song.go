@@ -12,7 +12,7 @@ import (
 )
 
 // DeleteSongHandler handles HTTP requests to delete an existing song from the collection.
-// @Tags         collections
+// @Tags         songs
 // @Summary      Delete an existing song from the collection.
 // @Description  Delete an existing song from the collection.
 // @Param        id        	path      string  true  "Song ID"
