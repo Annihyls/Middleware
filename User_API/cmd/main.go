@@ -3,7 +3,8 @@ package main
 import (
 	"github.com/go-chi/chi/v5"
 	"github.com/sirupsen/logrus"
-	"middleware/example/internal/controllers/collections"
+
+	"middleware/example/internal/controllers/users"
 	"middleware/example/internal/helpers"
 	_ "middleware/example/internal/models"
 	"net/http"
@@ -12,11 +13,17 @@ import (
 func main() {
 	r := chi.NewRouter()
 
-	r.Route("/collections", func(r chi.Router) {
-		r.Get("/", collections.GetCollections)
+	r.Route("/users", func(r chi.Router) {
+		r.Post("/", users.CreateUser)
+		r.Get("/", users.GetUsers)
+
 		r.Route("/{id}", func(r chi.Router) {
-			r.Use(collections.Ctx)
-			r.Get("/", collections.GetCollection)
+
+			r.Use(users.Ctx)
+			r.Delete("/", users.DeleteUser)
+			r.Put("/", users.UpdateUser)
+			r.Get("/", users.GetUser)
+
 		})
 	})
 
@@ -32,8 +39,7 @@ func init() {
 	schemes := []string{
 		`CREATE TABLE IF NOT EXISTS users (
 			id VARCHAR(255) PRIMARY KEY NOT NULL UNIQUE,
-			content VARCHAR(255) NOT NULL
-			nom VARCHAR(255) NOT NULL
+			nom VARCHAR(255) NOT NULL,
 			prenom VARCHAR(255) NOT NULL
 		);`,
 	}
