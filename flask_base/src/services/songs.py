@@ -17,8 +17,10 @@ songs_url = "http://localhost:8081/songs/"  # URL de l'API users (golang)
 def get_song(id):
     print("debug0")
     response = requests.request(method="GET", url=songs_url+id)
-    print(response.status_code)
-    return response.json(), response.status_code
+    if response.status_code != 200 :
+        return jsonify({'error': 'Failed to update rating'}), response.status_code
+    else:
+        return jsonify({'message': 'Rating updated successfully'}), 200
 
 def get_songs():
     print("debug0")
