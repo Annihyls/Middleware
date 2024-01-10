@@ -10,13 +10,12 @@ from src.models.http_exceptions import *
 import src.repositories.users as users_repository
 
 
-users_url = "http://localhost:8080/users/"  # URL de l'API users (golang)
+users_url = "http://localhost:4000/users/"  # URL de l'API users (golang)
 
 
 def get_user(id):
     response = requests.request(method="GET", url=users_url+id)
     return response.json(), response.status_code
-
 
 def create_user(user_register):
     # on récupère le modèle utilisateur pour la BDD

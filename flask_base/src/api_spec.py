@@ -38,10 +38,6 @@ tags = [
         "description": "Managing users"
     },
     {
-        "name": "ratings",
-        "description": "Managing ratings"
-    },
-    {
         "name": "auth",
         "description": "Managing authentication"
     }
